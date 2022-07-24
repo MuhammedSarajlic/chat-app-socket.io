@@ -17,6 +17,10 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
     console.log(`User joined: ${socket.id}`);
+
+    socket.on("send_msg", (data) => {
+        socket.broadcast.emit("receive_msg", data)
+    })
 })
 
 server.listen(3001, () => {
