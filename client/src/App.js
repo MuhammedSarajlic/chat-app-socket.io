@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import Chat from './Components/Chat';
 import LogIn from './Components/LogIn';
 
-export const socket = io.connect("http://localhost:3001")
+export const socket = io("http://localhost:3001")
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
