@@ -12,11 +12,11 @@ const LogIn = ({ isLoggedIn, setIsLoggedIn, username, setUsername, room, setRoom
 
 
   return (
-    <>
+    <div className='join-room'>
         <input value={username} type="text" placeholder='Username' onChange={e => setUsername(e.target.value)}/>
         <input value={room} type="text" placeholder='Room' onChange={e => setRoom(e.target.value)}/>
         <button onClick={joinRoom}>Log In</button>
-    </>
+    </div>
   )
 }
 

@@ -12,7 +12,7 @@ function App() {
   const [room, setRoom] = useState("")
 
   return (
-    <div>
+    <div className='container'>
       {isLoggedIn ? 
       <Chat 
         username={username}

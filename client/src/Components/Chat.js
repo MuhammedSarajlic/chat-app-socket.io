@@ -27,17 +27,26 @@ const Chat = ({ username, room }) => {
 
 
   return (
-    <>
-        {messageList.map((item, index) => (
-            <div key={index}>
-                <p>{item.message}</p>
-                <p>{item.username}</p>
-                <p>{item.date}</p>
+    <div className='chat-position'>
+        <div className='chat'>
+            <div className='chat-header'>
+                <h1>{room}</h1>
             </div>
-        ))}
-        <input value={message} type="text" placeholder='Message...' onChange={e => setMessage(e.target.value)}/>
-        <button onClick={sendMessage}>Send</button>
-    </>
+            <div className='chat-body'>
+                {messageList.map((item, index) => (
+                    <div key={index} className={item.username === username ? 'user' : 'other'}>
+                        <p className='msg-info'>{item.username}</p>
+                        <p className={item.username === username ? 'user-msg' : 'other-msg'}>{item.message}</p>
+                        <p className='msg-info'>{item.date}</p>
+                    </div>
+                ))}
+            </div>
+            <div className='chat-footer'>
+                <input value={message} type="text" placeholder='Message...' onChange={e => setMessage(e.target.value)}/>
+                <button onClick={sendMessage}>Send</button>
+            </div>
+        </div>
+    </div>
   )
 }
 
