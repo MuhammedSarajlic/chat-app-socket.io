@@ -1,15 +1,21 @@
 import React, {useEffect, useState} from 'react'
-import io from 'socket.io-client'
+import {socket} from '../App'
 
-const socket = io.connect("http://localhost:3001")
-
-const Chat = () => {
+const Chat = ({ username, room }) => {
     const [message, setMessage] = useState("")
     const [messageList, setMessageList] = useState([])
 
-    const sendMessage = () => {
-        socket.emit("send_msg", {message})
-        setMessageList((list) => [...list, message])
+    const sendMessage = async () => {
+        let hours = new Date().getHours() < 10 ? "0" + new Date().getHours() : new Date().getHours()
+        let minutes = new Date().getMinutes() < 10 ? "0" + new Date().getMinutes() : new Date().getMinutes()
+        const msgBody = {
+            message: message,
+            username: username,
+            room: room,
+            date: `${hours}:${minutes}`
+        }
+        await socket.emit("send_msg", msgBody)
+        setMessageList((list) => [...list, msgBody])
         setMessage("")
     }
 
@@ -17,11 +23,18 @@ const Chat = () => {
         socket.on("receive_msg", (data) => {
             setMessageList((list) => [...list, data])
         })
-    }, [socket])
+    }, [])
 
-    console.log(messageList);
+
   return (
     <>
+        {messageList.map((item, index) => (
+            <div key={index}>
+                <p>{item.message}</p>
+                <p>{item.username}</p>
+                <p>{item.date}</p>
+            </div>
+        ))}
         <input value={message} type="text" placeholder='Message...' onChange={e => setMessage(e.target.value)}/>
         <button onClick={sendMessage}>Send</button>
     </>

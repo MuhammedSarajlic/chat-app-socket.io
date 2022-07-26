@@ -1,12 +1,15 @@
 import React from 'react'
+import {socket} from '../App'
 
 const LogIn = ({ isLoggedIn, setIsLoggedIn, username, setUsername, room, setRoom }) => {
 
-    const joinRoom = () => {
-        if(username !== "" && room !== ""){
-            setIsLoggedIn(!isLoggedIn)
-        }
-    }
+  const joinRoom = () => {
+      if(username !== "" && room !== ""){
+          setIsLoggedIn(!isLoggedIn)
+          socket.emit("join_room", room)
+      }
+  }
+
 
   return (
     <>

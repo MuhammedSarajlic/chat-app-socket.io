@@ -1,10 +1,10 @@
 import './App.css';
 import io from 'socket.io-client'
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Chat from './Components/Chat';
 import LogIn from './Components/LogIn';
 
-const socket = io.connect("http://localhost:3001")
+export const socket = io.connect("http://localhost:3001")
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -14,7 +14,10 @@ function App() {
   return (
     <div>
       {isLoggedIn ? 
-      <Chat /> 
+      <Chat 
+        username={username}
+        room={room}
+      /> 
       : 
       <LogIn 
         isLoggedIn={isLoggedIn}
